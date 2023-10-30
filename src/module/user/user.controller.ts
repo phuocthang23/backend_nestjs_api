@@ -5,29 +5,34 @@ import {
   Param,
   ParseIntPipe,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/user.dto';
 import { UserService } from './user.service';
-// import { RolesGuard } from 'src/guards/test.guard';
+import { AuthGuard } from 'src/guard/checkAuth.guard';
 
 @Controller('user')
+// @UsePipes(new HidePasswordPipe())
+
 // @UseGuards(RolesGuard)
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get('/')
+  @UseGuards(AuthGuard)
   getUser() {
-    console.log(this.userService.findAll());
     return this.userService.findAll();
   }
 
-  // @Post('/register')
-  // // @UsePipes(new ValidationPipe())
-  // createUser(@Body() body: CreateUserDto) {
-  //   return this.userService.createUsers(body);
-  // }
+  @Get('/userdetail')
+  @UseGuards(AuthGuard)
+  getOneUser(@Param('id') id: number) {
+    console.log(id);
+    return this.userService.findOne(id);
+  }
 
   @Patch('/update/:id')
+  @UseGuards(AuthGuard)
   updateUserById(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: CreateUserDto,
@@ -35,7 +40,8 @@ export class UserController {
     return this.userService.updateUsers(id, body);
   }
 
-  @Patch('/status/:id')
+  @Patch('/status')
+  @UseGuards(AuthGuard)
   deleteUserById(@Param('id', ParseIntPipe) id: number) {
     return this.userService.changeStatus(id);
   }

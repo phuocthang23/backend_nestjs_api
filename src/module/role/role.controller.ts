@@ -5,7 +5,7 @@ import { CreateRoleDto } from './dtos/createRole.dto';
 @Controller('roles')
 export class RoleController {
   constructor(private roleService: RoleService) {}
-  @Get('all')
+  @Get('/')
   getAllRole() {
     return this.roleService.findAll();
   }

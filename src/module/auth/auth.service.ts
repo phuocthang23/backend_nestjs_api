@@ -1,12 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { hashPassword } from 'src/utils/bycrypt';
-import { CreateUserParams } from 'src/utils/types';
+import { CreateUserParams, LoginUser } from 'src/utils/types';
 import { User } from '../user/entities/user.entity';
+// import { JwtService } from '@nestjs/jwt';
+import { JWT } from 'src/utils/jwt';
+// import { generate } from 'rxjs';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private authRepository: AuthRepository) {}
+  constructor(
+    private authRepository: AuthRepository,
+    private jwt: JWT,
+  ) {}
 
   async createUsers(
     data: CreateUserParams,
@@ -28,7 +35,27 @@ export class AuthService {
     }
   }
 
-  async findUserEmail(data: CreateUserParams): Promise<User> {
-    return await this.authRepository.getUserByEmail(data);
+  async findUserEmail(data: LoginUser): Promise<any> {
+    const checkUser = await this.authRepository.getUserByEmail(data);
+    console.log(checkUser); //* tìm user
+    if (!checkUser) {
+      throw new HttpException('email is not exist', HttpStatus.UNAUTHORIZED); //* kiểm tra user
+    }
+    console.log(data, checkUser.password);
+    const checkPassword = bcrypt.compareSync(data.password, checkUser.password);
+    if (!checkPassword) {
+      throw new HttpException(
+        'password is not correct',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    // //*generate access token
+    const payload = { id: checkUser.id, email: checkUser.email };
+    console.log(payload);
+    return {
+      data: checkUser,
+      access_token: await this.jwt.generateToken(payload),
+    };
   }
 }
