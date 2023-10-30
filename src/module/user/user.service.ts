@@ -9,27 +9,6 @@ import { User } from './entities/user.entity';
 export class UserService {
   constructor(private userRep: RepositoryUser) {}
 
-  // async createUsers(
-  //   data: CreateUserParams,
-  // ): Promise<{ message: string } | User> {
-  //   const checkEmail = await this.userRep.getUserByEmail(data);
-  //   if (checkEmail) {
-  //     return {
-  //       message: 'Email already exists',
-  //     };
-  //   } else {
-  //     const hashedPassword = await hashPassword(data.password);
-  //     const defaultAvatar =
-  //       'https://cdn-icons-png.flaticon.com/512/149/149071.png';
-  //     const newUser = {
-  //       ...data,
-  //       password: hashedPassword,
-  //       avatar: defaultAvatar,
-  //     };
-  //     return await this.userRep.create(newUser);
-  //   }
-  // }
-
   async findAll(): Promise<User[]> {
     console.log(this.userRep);
     return await this.userRep.findAll();

@@ -31,8 +31,14 @@ export class RepositoryUser {
     });
   }
 
+  // async findUserById(id: number): Promise<User> {
+  //   console.log(this.rep.findOneById(id));
+  //   return await this.rep.findOneBy(where { id : id});
+  // }
+
+  //find user by id
   async findUserById(id: number): Promise<User> {
-    return await this.rep.findOneById(id);
+    return await this.rep.findOneBy({ id });
   }
 
   //remove user by id
