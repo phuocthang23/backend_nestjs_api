@@ -7,3 +7,8 @@ export type CreateUserParams = {
   status: number;
   // roleId: number;
 };
+
+export type LoginUser = {
+  email: string;
+  password: string;
+};
