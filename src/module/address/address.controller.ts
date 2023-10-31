@@ -1,16 +1,20 @@
-import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { AddressService } from './address.service';
-import { AdminGuard } from 'src/guard/verifyRole.guard';
-import { AddressType } from 'src/utils/types';
+import { AddressType } from './interface/address.interface';
 
 @Controller('address')
 export class AddressController {
   constructor(private addressService: AddressService) {}
 
+  @Post('/create')
+  createAddress(@Body() body: AddressType) {
+    console.log(body);
+    return this.addressService.create(body);
+  }
+
   @Get('/')
-  @UseGuards(AdminGuard)
   getUser() {
-    // return this.userService.findAll();
+    return this.addressService.findAll();
   }
 
   @Get('/:id')

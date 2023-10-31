@@ -12,8 +12,3 @@ export type LoginUser = {
   email: string;
   password: string;
 };
-
-export interface AddressType {
-  address?: string;
-  phoneNumber: number;
-}

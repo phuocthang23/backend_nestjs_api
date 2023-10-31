@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RepositoryUser } from './user.repository';
-import { CreateUserParams } from 'src/utils/types';
+import { CreateUserParams } from 'src/shared/utils/types';
 // import { CreateUserDto } from './dtos/CreateUser.dto';
 import { User } from './entities/user.entity';
 // import { hashPassword } from 'src/utils/bycrypt';

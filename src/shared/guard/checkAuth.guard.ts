@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { DataFromToken } from 'src/utils/dataFormToken';
+import { DataFromToken } from 'src/shared/utils/dataFormToken';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

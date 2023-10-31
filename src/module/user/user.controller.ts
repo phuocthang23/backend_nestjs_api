@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/user.dto';
 import { UserService } from './user.service';
-import { AuthGuard } from 'src/guard/checkAuth.guard';
-import { DataFromToken } from 'src/utils/dataFormToken';
-import { AdminGuard } from 'src/guard/verifyRole.guard';
+import { AuthGuard } from 'src/shared/guard/checkAuth.guard';
+import { DataFromToken } from 'src/shared/utils/dataFormToken';
+import { AdminGuard } from 'src/shared/guard/verifyRole.guard';
 
 @Controller('user')
 @UseGuards(AuthGuard)

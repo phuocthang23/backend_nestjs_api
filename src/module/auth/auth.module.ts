@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../user/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { config as configDotenv } from 'dotenv';
-import { JWT } from 'src/utils/jwt';
+import { JWT } from 'src/shared/utils/jwt';
 configDotenv();
 @Module({
   imports: [
