@@ -37,10 +37,10 @@ export class User {
   @Column({ type: 'int', default: 0, nullable: true })
   status: number;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn({ type: 'timestamp', select: false })
   createAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn({ type: 'timestamp', select: false })
   updateAt: Date;
 
   @Column({ default: 2, nullable: false })

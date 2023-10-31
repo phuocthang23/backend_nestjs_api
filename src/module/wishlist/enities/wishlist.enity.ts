@@ -1,25 +1,25 @@
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('Address')
-export class Address {
+@Entity('wishList')
+export class wishList {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
-  address: string;
+  @Column({ type: 'int', nullable: true })
+  userId: number;
 
-  @Column({ nullable: false })
-  phoneNumber: number;
+  @Column({ type: 'int', nullable: true })
+  productId: number;
 
   @CreateDateColumn({ type: 'timestamp', select: false })
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp', select: false })
-  updateAt: Date;
+  updatedAt: Date;
 }

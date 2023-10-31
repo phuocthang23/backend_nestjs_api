@@ -1,25 +1,25 @@
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('Address')
-export class Address {
+@Entity('image-product')
+export class imageProduct {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
-  address: string;
+  @Column({ type: 'varchar', nullable: false })
+  src: string;
 
-  @Column({ nullable: false })
-  phoneNumber: number;
+  @Column({ type: 'int', nullable: false })
+  productID: number;
 
   @CreateDateColumn({ type: 'timestamp', select: false })
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp', select: false })
-  updateAt: Date;
+  updatedAt: Date;
 }

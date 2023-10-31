@@ -22,7 +22,7 @@ export class RepositoryUser {
 
   //find all
   async findAll(): Promise<User[]> {
-    return this.rep.find();
+    return this.rep.find({ relations: ['role'] });
   }
 
   async update(id: number, data: CreateUserParams) {
@@ -38,7 +38,10 @@ export class RepositoryUser {
 
   //find user by id
   async findUserById(id: number): Promise<User> {
-    return await this.rep.findOneBy({ id });
+    return await this.rep.findOne({
+      where: { id },
+      relations: ['role'],
+    });
   }
 
   //remove user by id

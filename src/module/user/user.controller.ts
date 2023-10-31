@@ -3,46 +3,47 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/user.dto';
 import { UserService } from './user.service';
 import { AuthGuard } from 'src/guard/checkAuth.guard';
+import { DataFromToken } from 'src/utils/dataFormToken';
+import { AdminGuard } from 'src/guard/verifyRole.guard';
 
 @Controller('user')
+@UseGuards(AuthGuard)
 // @UsePipes(new HidePasswordPipe())
 
 // @UseGuards(RolesGuard)
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private dataFromToken: DataFromToken,
+  ) {}
 
   @Get('/')
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   getUser() {
     return this.userService.findAll();
   }
 
   @Get('/userdetail')
-  @UseGuards(AuthGuard)
-  getOneUser(@Param('id') id: number) {
-    console.log(id);
-    return this.userService.findOne(id);
+  getOneUser(@Request() request: Request) {
+    const userIdFromToken = this.dataFromToken.getData(request);
+    return this.userService.findOne(Number(userIdFromToken));
   }
 
-  @Patch('/update/:id')
-  @UseGuards(AuthGuard)
-  updateUserById(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() body: CreateUserDto,
-  ) {
-    return this.userService.updateUsers(id, body);
+  @Patch('/update')
+  updateUserById(@Body() body: CreateUserDto, @Request() request: Request) {
+    const userIdFromToken = this.dataFromToken.getData(request); // Lấy id từ request.user
+    return this.userService.updateUsers(userIdFromToken, body);
   }
 
-  @Patch('/status')
-  @UseGuards(AuthGuard)
-  deleteUserById(@Param('id', ParseIntPipe) id: number) {
+  @Patch('/status/:id')
+  deleteUserById(@Param('id') id: number) {
     return this.userService.changeStatus(id);
   }
 }

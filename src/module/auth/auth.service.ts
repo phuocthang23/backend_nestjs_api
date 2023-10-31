@@ -51,7 +51,11 @@ export class AuthService {
     }
 
     // //*generate access token
-    const payload = { id: checkUser.id, email: checkUser.email };
+    const payload = {
+      id: checkUser.id,
+      email: checkUser.email,
+      roleId: checkUser.roleId,
+    };
     console.log(payload);
     return {
       data: checkUser,

@@ -1,25 +1,25 @@
 import {
   Entity,
-  Column,
   PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('Address')
-export class Address {
+@Entity('size')
+export class Size {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
-  address: string;
+  @Column({ type: 'varchar', nullable: false })
+  size: string;
 
-  @Column({ nullable: false })
-  phoneNumber: number;
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
+  priceSize: number;
 
   @CreateDateColumn({ type: 'timestamp', select: false })
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp', select: false })
-  updateAt: Date;
+  updatedAt: Date;
 }

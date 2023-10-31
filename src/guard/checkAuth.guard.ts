@@ -1,9 +1,13 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { DataFromToken } from 'src/utils/dataFormToken';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private dataFromToken: DataFromToken, // Đảm bảo rằng bạn đã inject service này
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -18,6 +22,7 @@ export class AuthGuard implements CanActivate {
     try {
       const user = await this.jwtService.verifyAsync(token);
       request.user = user; // Lưu thông tin người dùng vào request
+      // await this.dataFromToken.getData(request); // Lấy dữ liệu từ token
       return true; // Token hợp lệ, cho phép truy cập
     } catch (error) {
       console.error(error);

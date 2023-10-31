@@ -4,18 +4,12 @@ import { UserService } from './user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { RepositoryUser } from './user.repository';
+import { DataFromToken } from 'src/utils/dataFormToken';
 // import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    // JwtModule.register({
-    //   global: true,
-    //   secret: process.env.SECRET_TOKEN,
-    //   signOptions: { expiresIn: '60s' }, //* check
-    // }),
-  ],
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UserController],
-  providers: [UserService, RepositoryUser],
+  providers: [UserService, RepositoryUser, DataFromToken],
 })
 export class UserModule {}
