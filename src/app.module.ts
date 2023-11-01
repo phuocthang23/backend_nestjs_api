@@ -10,6 +10,8 @@ import { AddressModule } from './module/address/address.module';
 import { CartModule } from './module/cart/cart.module';
 import { CategoriesModule } from './module/categories/categories.module';
 import { WishlistModule } from './module/wishlist/wishlist.module';
+import { ProductModule } from './module/product/product.module';
+import { ImageProductModule } from './module/image-product/image-product.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { WishlistModule } from './module/wishlist/wishlist.module';
     CartModule,
     CategoriesModule,
     WishlistModule,
+    ProductModule,
+    ImageProductModule,
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_TOKEN,

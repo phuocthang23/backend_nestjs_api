@@ -43,7 +43,8 @@ export class UserController {
   }
 
   @Patch('/status/:id')
-  deleteUserById(@Param('id') id: number) {
+  @UseGuards(AdminGuard)
+  ChangeStatus(@Param('id') id: number) {
     return this.userService.changeStatus(id);
   }
 }

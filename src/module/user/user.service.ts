@@ -38,7 +38,6 @@ export class UserService {
   }
 
   async changeStatus(id: number): Promise<any> {
-    console.log(id);
     const checkUser = await this.userRep.findUserById(id);
     if (!checkUser) {
       throw new Error('User not found');
