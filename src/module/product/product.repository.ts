@@ -11,9 +11,18 @@ export class ProductRepository {
   }
 
   async findAll(): Promise<Product[]> {
-    return await this.rep.find();
+    return await this.rep.find({
+      relations: ['category', 'sizes', 'imageProducts'],
+    });
   }
-  async findProductById(id: number): Promise<Product> {
+  async findProductById(id: number): Promise<any> {
+    return await this.rep.find({
+      where: { id: id },
+      relations: ['category', 'sizes', 'imageProducts'],
+    });
+  }
+
+  async createProductSize(id: number): Promise<Product> {
     return await this.rep.findOneBy({ id });
   }
 

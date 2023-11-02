@@ -10,7 +10,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-@Entity('Users')
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

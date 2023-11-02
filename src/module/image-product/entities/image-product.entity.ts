@@ -1,9 +1,11 @@
+import { Product } from 'src/module/product/enities/product.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity('image-product')
@@ -22,4 +24,7 @@ export class imageProduct {
 
   @UpdateDateColumn({ type: 'timestamp', select: false })
   updatedAt: Date;
+
+  @ManyToOne(() => Product, (product) => product.imageProducts)
+  product: Product;
 }

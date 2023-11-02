@@ -1,9 +1,13 @@
+import { ProductSize } from 'src/module/size-product/entities/product-size.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  // OneToMany,
+  // OneToMany,
 } from 'typeorm';
 
 @Entity('size')
@@ -22,4 +26,7 @@ export class Size {
 
   @UpdateDateColumn({ type: 'timestamp', select: false })
   updatedAt: Date;
+
+  @OneToMany(() => ProductSize, (sizeProduct) => sizeProduct.size)
+  sizeProducts: ProductSize[];
 }

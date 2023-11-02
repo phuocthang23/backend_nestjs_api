@@ -3,12 +3,14 @@ import { Product } from './enities/product.entity';
 import { ProductRepository } from './product.repository';
 import { productDto } from './dtos/product.dto';
 import { ImageProductService } from '../image-product/image-product.service';
+import { SizeProductService } from '../size-product/size-product.service';
 
 @Injectable()
 export class ProductService {
   constructor(
     private productRepository: ProductRepository,
     private imageProductService: ImageProductService,
+    private sizeProductService: SizeProductService,
   ) {}
 
   async findAll(): Promise<Product[]> {
@@ -22,8 +24,10 @@ export class ProductService {
   async create(data: productDto): Promise<any> {
     const createdProduct = await this.productRepository.create(data);
 
+    const sizeArray = JSON.parse(data.size);
+    console.log(sizeArray);
+
     // Upload hình ảnh cho sản phẩm
-    console.log(data.images);
     if (data.images && data.images.length > 0) {
       await this.imageProductService.createImagesForProduct(
         createdProduct.id,
@@ -31,6 +35,9 @@ export class ProductService {
       );
     }
 
+    if (sizeArray && sizeArray.length > 0) {
+      await this.sizeProductService.create(createdProduct.id, sizeArray);
+    }
     const result = {
       nameProduct: createdProduct.nameProduct,
       description: createdProduct.description,
@@ -41,7 +48,6 @@ export class ProductService {
       createdAt: createdProduct.createdAt,
       updatedAt: createdProduct.updatedAt,
     };
-    // const { images, ...result } = createdProduct;
 
     return result;
   }

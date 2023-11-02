@@ -25,4 +25,6 @@ export class productDto {
 
   @IsString({ each: true })
   images?: any[]; // Thêm một mảng chứa các DTO của ảnh sản phẩm
+
+  size: any;
 }

@@ -17,7 +17,7 @@ export class ImageProductRepository {
     return this.rep.find();
   }
 
-  async update(id: number, data: imgProductDto) {
+  async update(id: number, data: imgProductDto): Promise<any> {
     return await this.rep.update(id, data);
   }
 

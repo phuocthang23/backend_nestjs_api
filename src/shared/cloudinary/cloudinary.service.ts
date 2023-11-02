@@ -10,7 +10,7 @@ export class CloudinaryService {
   uploadSingleFile(file: Express.Multer.File): Promise<CloudinaryResponse> {
     return new Promise<CloudinaryResponse>((resolve, reject) => {
       const uploadOptions = {
-        folder: 'Project-NestJs-ShoppingCart',
+        folder: 'Project-NestJs-ShoppingCart/imageProduct',
       };
       const uploadStream = cloudinary.uploader.upload_stream(
         uploadOptions,

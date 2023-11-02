@@ -42,7 +42,6 @@ export class ProductController {
 
       // Tạo sản phẩm
       const createdProduct = await this.productService.create(data);
-      console.log(createdProduct, '----------------------------------');
 
       return createdProduct;
     } catch (error) {

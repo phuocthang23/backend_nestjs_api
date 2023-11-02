@@ -12,6 +12,8 @@ import { CategoriesModule } from './module/categories/categories.module';
 import { WishlistModule } from './module/wishlist/wishlist.module';
 import { ProductModule } from './module/product/product.module';
 import { ImageProductModule } from './module/image-product/image-product.module';
+import { SizeModule } from './module/size/size.module';
+// import { SizeProductModule } from './module/size-product/size-product.module';
 
 @Module({
   imports: [
@@ -26,13 +28,14 @@ import { ImageProductModule } from './module/image-product/image-product.module'
     WishlistModule,
     ProductModule,
     ImageProductModule,
+    SizeModule,
+    // SizeProductModule,
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_TOKEN,
-      // signOptions: { expiresIn: '60s' }, //* check
+      signOptions: { expiresIn: '3600s', algorithm: 'HS256' }, //* check
     }),
   ],
   controllers: [],
-  providers: [],
 })
 export class AppModule {}

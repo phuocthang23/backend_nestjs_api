@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { SizeProductController } from './size-product.controller';
 import { SizeProductService } from './size-product.service';
-import { sizeProduct } from './entities/sizeProduct.entity';
+import { ProductSize } from './entities/product-size.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SizeProductRepository } from './size-product.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([sizeProduct])],
-
+  imports: [TypeOrmModule.forFeature([ProductSize])],
   controllers: [SizeProductController],
-  providers: [SizeProductService],
+  providers: [SizeProductService, SizeProductRepository],
 })
 export class SizeProductModule {}
