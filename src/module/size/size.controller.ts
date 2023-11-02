@@ -1,4 +1,27 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { sizeDto } from './dtos/size.dto';
+import { SizeService } from './size.service';
 
 @Controller('size')
-export class SizeController {}
+export class SizeController {
+  constructor(private size: SizeService) {}
+  @Post('/create')
+  createAddress(@Body() body: sizeDto) {
+    return this.size.create(body);
+  }
+
+  @Get('/')
+  getUser() {
+    return this.size.findAll();
+  }
+
+  @Get('/:id')
+  getOneAddress(@Param('id') id: number) {
+    return this.size.findOne(Number(id));
+  }
+
+  @Put('/update/:id')
+  updateUserById(@Param('id') id: number, @Body() body: sizeDto) {
+    return this.size.update(id, body);
+  }
+}

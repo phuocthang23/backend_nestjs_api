@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
-import { hashPassword } from 'src/utils/bycrypt';
-import { CreateUserParams, LoginUser } from 'src/utils/types';
+import { hashPassword } from 'src/shared/utils/bycrypt';
+import { CreateUserParams, LoginUser } from 'src/shared/utils/types';
 import { User } from '../user/entities/user.entity';
 // import { JwtService } from '@nestjs/jwt';
-import { JWT } from 'src/utils/jwt';
+import { JWT } from 'src/shared/utils/jwt';
 // import { generate } from 'rxjs';
 import * as bcrypt from 'bcrypt';
 
@@ -51,7 +51,11 @@ export class AuthService {
     }
 
     // //*generate access token
-    const payload = { id: checkUser.id, email: checkUser.email };
+    const payload = {
+      id: checkUser.id,
+      email: checkUser.email,
+      roleId: checkUser.roleId,
+    };
     console.log(payload);
     return {
       data: checkUser,

@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { CreateUserParams } from 'src/utils/types';
+import { CreateUserParams } from 'src/shared/utils/types';
 // import { CreateUserDto } from './dtos/CreateUser.dto';
 
 export class RepositoryUser {
@@ -22,7 +22,7 @@ export class RepositoryUser {
 
   //find all
   async findAll(): Promise<User[]> {
-    return this.rep.find();
+    return this.rep.find({ relations: ['role'] });
   }
 
   async update(id: number, data: CreateUserParams) {
@@ -38,7 +38,10 @@ export class RepositoryUser {
 
   //find user by id
   async findUserById(id: number): Promise<User> {
-    return await this.rep.findOneBy({ id });
+    return await this.rep.findOne({
+      where: { id },
+      relations: ['role'],
+    });
   }
 
   //remove user by id
